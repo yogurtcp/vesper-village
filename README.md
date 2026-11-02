@@ -34,6 +34,8 @@ Building facades, room backgrounds, trees, a fountain, grass and cobblestones us
 - Art manifest: [`art-manifest.json`](art-manifest.json).
 - Optional authoring bake: `python3 bake_art.py` (requires Pillow). Normal builds use committed PNGs and only Python's standard library.
 
+Actual game views: [village streets](design/previews/village.png), [inn room](design/previews/inn-room.png), [froyo shop](design/previews/froyo.png).
+
 ## Vampire rules
 
 - Thirty-six named residents have homes, occupations, schedules, temperaments and close relations. One is initially a hungry vampire.
