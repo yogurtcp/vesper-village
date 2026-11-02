@@ -1,5 +1,6 @@
 const CACHE='vesper-__BUILD__';
 const FILES=['./','./index.html','./style.css?v=__BUILD__','./engine.js?v=__BUILD__','./renderer.js?v=__BUILD__','./game.js?v=__BUILD__','./boot.js?v=__BUILD__','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
+FILES.push(...__ART_FILES__);
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES))));
 self.addEventListener('message',e=>{if(e.data?.type==='ACTIVATE')self.skipWaiting();});
 self.addEventListener('activate',e=>e.waitUntil((async()=>{for(const k of await caches.keys())if(k.startsWith('vesper-')&&k!==CACHE)await caches.delete(k);await self.clients.claim();})()));

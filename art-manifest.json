@@ -1,0 +1,112 @@
+{
+  "cafe-v2": {
+    "url": "assets/cafe-v2.png",
+    "width": 208,
+    "height": 189
+  },
+  "fountain-v3": {
+    "url": "assets/fountain-v3.png",
+    "width": 128,
+    "height": 147
+  },
+  "froyo-v2": {
+    "url": "assets/froyo-v2.png",
+    "width": 208,
+    "height": 198
+  },
+  "ground-cobbles-v2": {
+    "url": "assets/ground-cobbles-v2.png",
+    "width": 96,
+    "height": 96
+  },
+  "ground-grass-v2": {
+    "url": "assets/ground-grass-v2.png",
+    "width": 96,
+    "height": 96
+  },
+  "house-v2": {
+    "url": "assets/house-v2.png",
+    "width": 208,
+    "height": 198
+  },
+  "inn-v2": {
+    "url": "assets/inn-v2.png",
+    "width": 208,
+    "height": 191
+  },
+  "market-v2": {
+    "url": "assets/market-v2.png",
+    "width": 304,
+    "height": 185
+  },
+  "municipal-v2": {
+    "url": "assets/municipal-v2.png",
+    "width": 208,
+    "height": 202
+  },
+  "office-v2": {
+    "url": "assets/office-v2.png",
+    "width": 208,
+    "height": 222
+  },
+  "room-bedroom-v2": {
+    "url": "assets/room-bedroom-v2.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-cafe-v2": {
+    "url": "assets/room-cafe-v2.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-clinic-v2": {
+    "url": "assets/room-clinic-v2.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-froyo-v2": {
+    "url": "assets/room-froyo-v2.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-kitchen-v2": {
+    "url": "assets/room-kitchen-v2.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-market-v2": {
+    "url": "assets/room-market-v2.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-office-v2": {
+    "url": "assets/room-office-v2.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-parlor-v2": {
+    "url": "assets/room-parlor-v2.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-school-v2": {
+    "url": "assets/room-school-v2.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-storage-v2": {
+    "url": "assets/room-storage-v2.png",
+    "width": 384,
+    "height": 256
+  },
+  "school-v2": {
+    "url": "assets/school-v2.png",
+    "width": 256,
+    "height": 232
+  },
+  "tree-v3": {
+    "url": "assets/tree-v3.png",
+    "width": 96,
+    "height": 103
+  }
+}
