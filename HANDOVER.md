@@ -28,3 +28,7 @@ All generated runtime art is hashed into the build and precached. Every referenc
 ## Scope limits
 
 The town is not a complete life simulator. Rooms reuse generated themes, routines are simple, fear is town-wide, and unseen witnessing is probabilistic. Room windows currently do not expose actors in another scene. No locks, CCTV, inventories, detailed investigations or population replenishment are implemented. The food chain can still exhaust a town over multiple days; balance remains experimental.
+
+## Player control regression fix
+
+`changeSpace` used to insert the player into the NPC room index, so `refreshActive` could run vampire AI and route movement on the player after door transitions. The player must never be in `members`, `active` or the NPC event queue. `isNPC` guards AI entry points and update loops; `clearPlayerAI` removes saved NPC travel / intent fields without resetting health, blood, exposure, position or an active bite. Do not remove this separation when changing room transitions. Tests reproduce hungry auto-hunting after entry, stale scheduler / membership entries, and a contaminated save with a legitimate bite in progress.

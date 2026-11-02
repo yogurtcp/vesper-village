@@ -46,6 +46,8 @@ Actual game views: [village streets](design/previews/village.png), [inn room](de
 - The player's confirmed identity is permanently broadcast. Escaping a patrol does not clear the exposure. The run continues until death, allowing a difficult attempted escape.
 - Growing town-wide fear changes evening outings, companionship and sheltering behavior. Room boundaries block vision, feeding, gunfire and direct conversation across scenes.
 
+The player is excluded from all NPC registries and AI movement / scheduling. Loading a save removes accidental NPC routes from the player while retaining position, health, knowledge, exposure and active feeding.
+
 ## Unseen simulation
 
 `engine.js` maintains the resident identities independently of rendering.
@@ -84,7 +86,7 @@ Install metadata, icons and a discoverable install action are included. The work
 
 ## Validation
 
-Twenty engine checks cover hunger / sunlight, feeding and interruption, scene isolation, every doorway, all 48 room routes, distant journeys without per-frame updates, materialization continuity, unseen bites, rumors, reports, guard pursuit across doors, silver deaths, obsolete travel cancellation, save continuity and format-1 migration. Three natural two-day simulations also exercise spreading conversion, reports, rumor chains and guard killings; these are not a guarantee of long-term balance.
+Twenty-three engine checks cover hunger / sunlight, feeding and interruption, scene isolation, every doorway, all 48 room routes, distant journeys without per-frame updates, materialization continuity, unseen bites, rumors, reports, guard pursuit across doors, silver deaths, obsolete travel cancellation, save continuity and format-1 migration. Three natural two-day simulations also exercise spreading conversion, reports, rumor chains and guard killings; these are not a guarantee of long-term balance.
 
 Browser checks exercise real movement and feeding keys, building / room entry and reverse exits, the journal, expanded map, mobile controls, saved-room restoration, cached artwork offline, and upgrade from the published original prototype.
 
