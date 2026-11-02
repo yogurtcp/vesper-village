@@ -1,33 +1,37 @@
-# Vesper handover — expanded village / room scenes
+# Vesper handover — compact modern town
 
-Vesper is separate from Frostline. Work only in this repository for vampire-game requests.
+Vesper is separate from Frostline. Work in this repository for vampire-game requests.
 
 - Public game: https://vesper-village.yogurt-co.chatgpt.site
-- Public repository: https://github.com/yogurtcp/vesper-village
-- Sites project: `appgprj_6ae87784beac8191b17762f77bf29c65`.
-- Public audience is explicitly user-authorized; preserve it. Use `save_site_version` + `deploy_site_version`, not private deployment calls.
-- Commit subjects start `[muse]`. Local GitHub remote uses HTTPS; use the existing `gh auth git-credential` helper for pushes without changing global credential settings.
-- Read README for current controls, rules, architecture, authoring and validation commands.
+- Public MIT source: https://github.com/yogurtcp/vesper-village
+- Sites project: `appgprj_6ae87784beac8191b17762f77bf29c65`; preserve public access. Use save_site_version → deploy_site_version.
+- Commits begin `[muse]`; push exact source to GitHub and Sites, then publish matching packaged dist. Existing GitHub HTTPS remote uses gh auth git-credential.
 
-## Current request / implementation
+## Current implementation
 
-The user asked for generated detailed pixel art, a bigger continuous street world, each room as a separate screen, and unseen people simulated without updating everyone continuously. The outdoor map is now 3072 × 2304; 12 buildings have 48 individual room spaces. Generated source artwork and prompts are in `design`; small runtime PNGs and the art manifest are committed. Do not regress to procedural rectangular houses or continuous cutaway interiors.
+The user requested a modern setting, unique rooms and buildings, a smaller simpler town, witnesses reacting to NPC bites, and improved people animation. All are implemented. Bellwether is now 1600×1152, a quarter of the previous map, with 12 individually generated modern facades along two adjacent street rows and one connecting passage. The old winding roads/river/square are replaced.
 
-The event queue is authoritative for distant residents. `position` derives a point along a stored travel plan without stepping the resident. `refreshActive` materializes nearby / current-room people. `setGoal` uses the room portal graph and collision-safe paths; `arrive` performs actual space transitions. Always clear obsolete portals with `clearRoute` when stopping travel. Different spaces must not see, bite, shoot or gossip through one another.
+`town-modern.json` is authoritative for the compact layout, 48 room descriptions, individual furniture collision, and art-specific door endpoints. Each building has four unique room PNGs baked from its four-panel generated atlas. Every painted interior door must match exactly one portal; tests enforce the authored registry. Do not add decorative dead-end doors. Interior link tuples are [roomA, sideA, roomB, sideB, coordinateA, coordinateB]; opposite sides are not assumed. `spawnSide` controls safe player arrival. Foreground south exits are drawn only when real connections exist. Art revisions remove counters/sofas blocking doors.
 
-All original vampire rules remain: five-second bites convert humans; NPC vampires also convert victims; permanent player identification; reporting witnesses; diluted rumors; lethal guards; normal 100→20 blood drain over 24 game hours, and 1.5× sunlight drain below 50. NPC vampires start at 72 and hunt below 58. No conversion cap was introduced.
+Generated modern masters/prompts live in design/modern; optional bake is `python3 bake_modern.py`. Runtime uses 67 assets: 12 facades, 48 rooms, 4 character atlases, modern asphalt, retained grass/tree. `bake_art.py` and design/generated are historical. Build hashes town config, all runtime assets and code. Keep root code authoritative and rebuild dist.
 
-## Save compatibility
+Characters use 4-direction/4-phase walk atlases. Distance drives frames, idle is stable, all feet share a baseline. Clothing/skin variants are precomputed once. Sleeping, feeding, victim struggle, police aiming and calling poses are separate. Indoors characters render 1.5× larger for the room camera. Do not regress to alternate left/right flips.
 
-Retain the `vesper-village-save-v1` storage key and format-1 migration. Format 2 adds `space`, planned movement, event times and lazy blood times. Version-1 backup is retained before migration. Preserve converted / dead residents, knowledge, rumors, health, exposure and active feeding. Do not erase a village to simplify an upgrade. `fixtures/legacy-save-v1.json` exercises migration, including an in-progress bite.
+## Feeding, witnesses and simulation
 
-## Install / updates
+Nearby humans hear the victim cry even if facing away, turn toward the attacker and witness through clear line of sight. Nearby sleeping people wake after one second. Separate rooms/walls block identification. Visible encounters are deterministic even before promotion to active residents. Unseen visual-only encounters retain coarse probabilities. Witnesses flee toward police and can make a two-second phone call after three seconds and separation from the attacker; guards/station receive reports immediately. Reporting takes precedence over routines. Held/converted/dead callers cannot finish a call. Both player and NPC bites share this code.
 
-All generated runtime art is hashed into the build and precached. Every referenced asset must exist. `boot.js` checks once at online startup and does not reload an active run. Do not add update polling or checks on focus / reconnect. Run `python3 build.py` before packaging; keep generated copies consistent.
+The event queue remains authoritative offscreen. Planned travel is materialized only when needed. Reports receive short scheduled events even during distant travel. Preserve scene isolation, clearRoute on cancelled travel, lazy blood, permanent identification, rumor provenance, five-second conversion and all original blood rules. Current room/nearby neighborhood alone receives continuous movement.
 
-## Scope limits
+## Saves, install, checks
 
-The town is not a complete life simulator. Rooms reuse generated themes, routines are simple, fear is town-wide, and unseen witnessing is probabilistic. Room windows currently do not expose actors in another scene. No locks, CCTV, inventories, detailed investigations or population replenishment are implemented. The food chain can still exhaust a town over multiple days; balance remains experimental.
+Storage key stays vesper-village-save-v1. Format 3 migrates formats 1/2 to modern coordinates, replans routes, preserves blood times, health, conversions/deaths, beliefs, exposure and ongoing bites. Browser backups: -before-modern and the previous -before-rooms. Fixtures cover both earlier formats. Mid-bite reload waits for player input.
+
+PWA checks only at online startup, never on timers/focus/reconnection; active play is not reloaded. All runtime art is precached. Preserve offline support and saved work.
+
+Run `python3 build.py` and `node tests.cjs`: 29 behavior checks plus three natural two-day simulations. Browser checks passed actual keyboard doors, released-player autonomy, NPC bite → flee → phone report, mobile layout, all 67 assets offline, and published-v2 → modern-v3 startup upgrade preserving an active bite and beliefs. Current screenshots are in design/previews/modern-*.
+
+Routines remain experimental, population can still be exhausted, there is no detailed inventory/CCTV/investigation system and no simulation while the app is closed.
 
 ## Player control regression fix
 

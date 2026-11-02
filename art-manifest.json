@@ -1,112 +1,373 @@
 {
-  "cafe-v2": {
-    "url": "assets/cafe-v2.png",
-    "width": 208,
-    "height": 189
-  },
-  "fountain-v3": {
-    "url": "assets/fountain-v3.png",
-    "width": 128,
-    "height": 147
-  },
-  "froyo-v2": {
-    "url": "assets/froyo-v2.png",
-    "width": 208,
-    "height": 198
-  },
-  "ground-cobbles-v2": {
-    "url": "assets/ground-cobbles-v2.png",
-    "width": 96,
-    "height": 96
-  },
   "ground-grass-v2": {
     "url": "assets/ground-grass-v2.png",
     "width": 96,
     "height": 96
   },
-  "house-v2": {
-    "url": "assets/house-v2.png",
-    "width": 208,
-    "height": 198
-  },
-  "inn-v2": {
-    "url": "assets/inn-v2.png",
-    "width": 208,
-    "height": 191
-  },
-  "market-v2": {
-    "url": "assets/market-v2.png",
-    "width": 304,
-    "height": 185
-  },
-  "municipal-v2": {
-    "url": "assets/municipal-v2.png",
-    "width": 208,
-    "height": 202
-  },
-  "office-v2": {
-    "url": "assets/office-v2.png",
-    "width": 208,
-    "height": 222
-  },
-  "room-bedroom-v2": {
-    "url": "assets/room-bedroom-v2.png",
-    "width": 384,
-    "height": 256
-  },
-  "room-cafe-v2": {
-    "url": "assets/room-cafe-v2.png",
-    "width": 384,
-    "height": 256
-  },
-  "room-clinic-v2": {
-    "url": "assets/room-clinic-v2.png",
-    "width": 384,
-    "height": 256
-  },
-  "room-froyo-v2": {
-    "url": "assets/room-froyo-v2.png",
-    "width": 384,
-    "height": 256
-  },
-  "room-kitchen-v2": {
-    "url": "assets/room-kitchen-v2.png",
-    "width": 384,
-    "height": 256
-  },
-  "room-market-v2": {
-    "url": "assets/room-market-v2.png",
-    "width": 384,
-    "height": 256
-  },
-  "room-office-v2": {
-    "url": "assets/room-office-v2.png",
-    "width": 384,
-    "height": 256
-  },
-  "room-parlor-v2": {
-    "url": "assets/room-parlor-v2.png",
-    "width": 384,
-    "height": 256
-  },
-  "room-school-v2": {
-    "url": "assets/room-school-v2.png",
-    "width": 384,
-    "height": 256
-  },
-  "room-storage-v2": {
-    "url": "assets/room-storage-v2.png",
-    "width": 384,
-    "height": 256
-  },
-  "school-v2": {
-    "url": "assets/school-v2.png",
-    "width": 256,
-    "height": 232
-  },
   "tree-v3": {
     "url": "assets/tree-v3.png",
     "width": 96,
     "height": 103
+  },
+  "building-modern-inn": {
+    "url": "assets/modern/building-modern-inn.png",
+    "width": 216,
+    "height": 164
+  },
+  "room-modern-inn-0": {
+    "url": "assets/modern/room-modern-inn-0.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-inn-1": {
+    "url": "assets/modern/room-modern-inn-1.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-inn-2": {
+    "url": "assets/modern/room-modern-inn-2.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-inn-3": {
+    "url": "assets/modern/room-modern-inn-3.png",
+    "width": 384,
+    "height": 256
+  },
+  "building-modern-cafe": {
+    "url": "assets/modern/building-modern-cafe.png",
+    "width": 200,
+    "height": 110
+  },
+  "room-modern-cafe-0": {
+    "url": "assets/modern/room-modern-cafe-0.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-cafe-1": {
+    "url": "assets/modern/room-modern-cafe-1.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-cafe-2": {
+    "url": "assets/modern/room-modern-cafe-2.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-cafe-3": {
+    "url": "assets/modern/room-modern-cafe-3.png",
+    "width": 384,
+    "height": 256
+  },
+  "building-modern-post": {
+    "url": "assets/modern/building-modern-post.png",
+    "width": 216,
+    "height": 104
+  },
+  "room-modern-post-0": {
+    "url": "assets/modern/room-modern-post-0.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-post-1": {
+    "url": "assets/modern/room-modern-post-1.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-post-2": {
+    "url": "assets/modern/room-modern-post-2.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-post-3": {
+    "url": "assets/modern/room-modern-post-3.png",
+    "width": 384,
+    "height": 256
+  },
+  "building-modern-guards": {
+    "url": "assets/modern/building-modern-guards.png",
+    "width": 232,
+    "height": 209
+  },
+  "room-modern-guards-0": {
+    "url": "assets/modern/room-modern-guards-0.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-guards-1": {
+    "url": "assets/modern/room-modern-guards-1.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-guards-2": {
+    "url": "assets/modern/room-modern-guards-2.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-guards-3": {
+    "url": "assets/modern/room-modern-guards-3.png",
+    "width": 384,
+    "height": 256
+  },
+  "building-modern-school": {
+    "url": "assets/modern/building-modern-school.png",
+    "width": 280,
+    "height": 116
+  },
+  "room-modern-school-0": {
+    "url": "assets/modern/room-modern-school-0.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-school-1": {
+    "url": "assets/modern/room-modern-school-1.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-school-2": {
+    "url": "assets/modern/room-modern-school-2.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-school-3": {
+    "url": "assets/modern/room-modern-school-3.png",
+    "width": 384,
+    "height": 256
+  },
+  "building-modern-market": {
+    "url": "assets/modern/building-modern-market.png",
+    "width": 296,
+    "height": 122
+  },
+  "room-modern-market-0": {
+    "url": "assets/modern/room-modern-market-0.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-market-1": {
+    "url": "assets/modern/room-modern-market-1.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-market-2": {
+    "url": "assets/modern/room-modern-market-2.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-market-3": {
+    "url": "assets/modern/room-modern-market-3.png",
+    "width": 384,
+    "height": 256
+  },
+  "building-modern-froyo": {
+    "url": "assets/modern/building-modern-froyo.png",
+    "width": 200,
+    "height": 124
+  },
+  "room-modern-froyo-0": {
+    "url": "assets/modern/room-modern-froyo-0.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-froyo-1": {
+    "url": "assets/modern/room-modern-froyo-1.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-froyo-2": {
+    "url": "assets/modern/room-modern-froyo-2.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-froyo-3": {
+    "url": "assets/modern/room-modern-froyo-3.png",
+    "width": 384,
+    "height": 256
+  },
+  "building-modern-office": {
+    "url": "assets/modern/building-modern-office.png",
+    "width": 248,
+    "height": 201
+  },
+  "room-modern-office-0": {
+    "url": "assets/modern/room-modern-office-0.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-office-1": {
+    "url": "assets/modern/room-modern-office-1.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-office-2": {
+    "url": "assets/modern/room-modern-office-2.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-office-3": {
+    "url": "assets/modern/room-modern-office-3.png",
+    "width": 384,
+    "height": 256
+  },
+  "building-modern-rowan": {
+    "url": "assets/modern/building-modern-rowan.png",
+    "width": 216,
+    "height": 192
+  },
+  "room-modern-rowan-0": {
+    "url": "assets/modern/room-modern-rowan-0.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-rowan-1": {
+    "url": "assets/modern/room-modern-rowan-1.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-rowan-2": {
+    "url": "assets/modern/room-modern-rowan-2.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-rowan-3": {
+    "url": "assets/modern/room-modern-rowan-3.png",
+    "width": 384,
+    "height": 256
+  },
+  "building-modern-willow": {
+    "url": "assets/modern/building-modern-willow.png",
+    "width": 216,
+    "height": 186
+  },
+  "room-modern-willow-0": {
+    "url": "assets/modern/room-modern-willow-0.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-willow-1": {
+    "url": "assets/modern/room-modern-willow-1.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-willow-2": {
+    "url": "assets/modern/room-modern-willow-2.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-willow-3": {
+    "url": "assets/modern/room-modern-willow-3.png",
+    "width": 384,
+    "height": 256
+  },
+  "building-modern-clinic": {
+    "url": "assets/modern/building-modern-clinic.png",
+    "width": 232,
+    "height": 117
+  },
+  "room-modern-clinic-0": {
+    "url": "assets/modern/room-modern-clinic-0.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-clinic-1": {
+    "url": "assets/modern/room-modern-clinic-1.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-clinic-2": {
+    "url": "assets/modern/room-modern-clinic-2.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-clinic-3": {
+    "url": "assets/modern/room-modern-clinic-3.png",
+    "width": 384,
+    "height": 256
+  },
+  "building-modern-bakery": {
+    "url": "assets/modern/building-modern-bakery.png",
+    "width": 216,
+    "height": 137
+  },
+  "room-modern-bakery-0": {
+    "url": "assets/modern/room-modern-bakery-0.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-bakery-1": {
+    "url": "assets/modern/room-modern-bakery-1.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-bakery-2": {
+    "url": "assets/modern/room-modern-bakery-2.png",
+    "width": 384,
+    "height": 256
+  },
+  "room-modern-bakery-3": {
+    "url": "assets/modern/room-modern-bakery-3.png",
+    "width": 384,
+    "height": 256
+  },
+  "character-modern-player": {
+    "url": "assets/modern/character-modern-player.png",
+    "width": 128,
+    "height": 128,
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "columns": 4,
+    "rows": [
+      "south",
+      "west",
+      "east",
+      "north"
+    ]
+  },
+  "character-modern-civilian-a": {
+    "url": "assets/modern/character-modern-civilian-a.png",
+    "width": 128,
+    "height": 128,
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "columns": 4,
+    "rows": [
+      "south",
+      "west",
+      "east",
+      "north"
+    ]
+  },
+  "character-modern-civilian-b": {
+    "url": "assets/modern/character-modern-civilian-b.png",
+    "width": 128,
+    "height": 128,
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "columns": 4,
+    "rows": [
+      "south",
+      "west",
+      "east",
+      "north"
+    ]
+  },
+  "character-modern-police": {
+    "url": "assets/modern/character-modern-police.png",
+    "width": 128,
+    "height": 128,
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "columns": 4,
+    "rows": [
+      "south",
+      "west",
+      "east",
+      "north"
+    ]
+  },
+  "ground-modern-asphalt": {
+    "url": "assets/modern/ground-modern-asphalt.png",
+    "width": 96,
+    "height": 96
   }
 }

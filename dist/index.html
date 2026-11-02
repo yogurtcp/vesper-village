@@ -1,10 +1,1830 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#242434"><meta name="description" content="A small living village. A very hungry secret. A playable vampire simulation."><meta name="apple-mobile-web-app-capable" content="yes"><meta name="vesper-build" content="906d42d727ab7beb"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png"><link rel="stylesheet" href="style.css?v=906d42d727ab7beb"><title>Vesper · A village after dark</title></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#242434"><meta name="description" content="A small living village. A very hungry secret. A playable vampire simulation."><meta name="apple-mobile-web-app-capable" content="yes"><meta name="vesper-build" content="c8eb3e0b129636dc"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png"><link rel="stylesheet" href="style.css?v=c8eb3e0b129636dc"><title>Vesper · A village after dark</title></head>
 <body><main id="app"><canvas id="town" aria-label="Vesper village. Move with arrows or WASD. Hold E near a person to feed. Shift to run. J opens the village journal." tabindex="0"></canvas>
 <header><div class="brand"><span class="crescent">☾</span><div><b>VESPER</b><small>A VILLAGE AFTER DARK</small></div></div><div id="clock">DAY 1 · 17:45</div><div class="blood"><span>BLOOD <b id="blood-value">72%</b></span><div class="meter"><i id="blood-fill"></i><i class="threshold"></i></div></div><button id="journal-button" title="Village journal (J)">Journal <kbd>J</kbd></button><button id="pause-button" title="Pause (Escape)">Ⅱ</button></header>
 <div id="notice" role="status" aria-live="polite"></div><div id="exposure" hidden>IDENTIFIED · Your face is known. Silver patrols are hunting you.</div>
 <aside id="person" hidden></aside><div id="feeding" hidden><span id="feed-label">FEEDING</span><div><i id="feed-progress"></i></div><small>Stay still · release to stop</small></div>
-<footer><div><b id="location">The Lantern Inn</b><small id="activity">Find someone alone. Hold E to feed.</small></div><div class="tools"><button id="map-button" title="Village map (M)">Map <kbd>M</kbd></button><button id="speed-button" title="Simulation speed">Time ×1</button><button id="help-button" title="Controls and rules">?</button><button id="install-button" hidden>Install</button></div></footer>
+<footer><div><b id="location">Lantern Hotel</b><small id="activity">Find someone alone. Hold E to feed.</small></div><div class="tools"><button id="map-button" title="Village map (M)">Map <kbd>M</kbd></button><button id="speed-button" title="Simulation speed">Time ×1</button><button id="help-button" title="Controls and rules">?</button><button id="install-button" hidden>Install</button></div></footer>
 <div id="touch"><div id="stick"><i></i></div><button id="feed-button">HOLD<br>TO BITE</button><button id="run-button">RUN</button></div>
 <dialog id="panel"><button id="close-panel" class="close" aria-label="Close">×</button><div id="panel-content"></div></dialog>
-<div id="boot">Lighting the windows…</div></main><script>window.VESPER_ART={"cafe-v2": {"url": "assets/cafe-v2.png", "width": 208, "height": 189}, "fountain-v3": {"url": "assets/fountain-v3.png", "width": 128, "height": 147}, "froyo-v2": {"url": "assets/froyo-v2.png", "width": 208, "height": 198}, "ground-cobbles-v2": {"url": "assets/ground-cobbles-v2.png", "width": 96, "height": 96}, "ground-grass-v2": {"url": "assets/ground-grass-v2.png", "width": 96, "height": 96}, "house-v2": {"url": "assets/house-v2.png", "width": 208, "height": 198}, "inn-v2": {"url": "assets/inn-v2.png", "width": 208, "height": 191}, "market-v2": {"url": "assets/market-v2.png", "width": 304, "height": 185}, "municipal-v2": {"url": "assets/municipal-v2.png", "width": 208, "height": 202}, "office-v2": {"url": "assets/office-v2.png", "width": 208, "height": 222}, "room-bedroom-v2": {"url": "assets/room-bedroom-v2.png", "width": 384, "height": 256}, "room-cafe-v2": {"url": "assets/room-cafe-v2.png", "width": 384, "height": 256}, "room-clinic-v2": {"url": "assets/room-clinic-v2.png", "width": 384, "height": 256}, "room-froyo-v2": {"url": "assets/room-froyo-v2.png", "width": 384, "height": 256}, "room-kitchen-v2": {"url": "assets/room-kitchen-v2.png", "width": 384, "height": 256}, "room-market-v2": {"url": "assets/room-market-v2.png", "width": 384, "height": 256}, "room-office-v2": {"url": "assets/room-office-v2.png", "width": 384, "height": 256}, "room-parlor-v2": {"url": "assets/room-parlor-v2.png", "width": 384, "height": 256}, "room-school-v2": {"url": "assets/room-school-v2.png", "width": 384, "height": 256}, "room-storage-v2": {"url": "assets/room-storage-v2.png", "width": 384, "height": 256}, "school-v2": {"url": "assets/school-v2.png", "width": 256, "height": 232}, "tree-v3": {"url": "assets/tree-v3.png", "width": 96, "height": 103}};</script><script src="boot.js?v=906d42d727ab7beb"></script><script src="engine.js?v=906d42d727ab7beb"></script><script src="renderer.js?v=906d42d727ab7beb"></script><script src="game.js?v=906d42d727ab7beb"></script></body></html>
+<div id="boot">Lighting the windows…</div></main><script>window.VESPER_TOWN={
+  "version": 3,
+  "cols": 100,
+  "rows": 72,
+  "roomWidth": 384,
+  "roomHeight": 256,
+  "roads": [
+    {
+      "name": "High Street",
+      "width": 56,
+      "points": [
+        [
+          32,
+          416
+        ],
+        [
+          1512,
+          416
+        ]
+      ]
+    },
+    {
+      "name": "Neighborhood Street",
+      "width": 56,
+      "points": [
+        [
+          32,
+          912
+        ],
+        [
+          1512,
+          912
+        ]
+      ]
+    },
+    {
+      "name": "Juniper Passage",
+      "width": 24,
+      "points": [
+        [
+          790,
+          416
+        ],
+        [
+          790,
+          912
+        ]
+      ]
+    }
+  ],
+  "buildings": [
+    {
+      "id": "inn",
+      "name": "Lantern Hotel",
+      "job": "innkeeper",
+      "color": "#7b9391",
+      "open": 6,
+      "close": 23,
+      "x": 64,
+      "y": 252,
+      "w": 176,
+      "h": 96,
+      "art": "building-modern-inn",
+      "links": [
+        [
+          0,
+          "north",
+          3,
+          "north",
+          [
+            238,
+            84
+          ],
+          [
+            188,
+            98
+          ]
+        ],
+        [
+          0,
+          "east",
+          1,
+          "west",
+          [
+            370,
+            174
+          ],
+          [
+            18,
+            174
+          ]
+        ],
+        [
+          0,
+          "west",
+          2,
+          "east",
+          [
+            14,
+            174
+          ],
+          [
+            370,
+            174
+          ]
+        ],
+        [
+          1,
+          "north",
+          3,
+          "south",
+          [
+            188,
+            85
+          ],
+          [
+            192,
+            228
+          ]
+        ]
+      ],
+      "rooms": [
+        {
+          "name": "Hotel lobby",
+          "art": "room-modern-inn-0",
+          "description": "A contemporary boutique-hotel lobby, cream terrazzo floor, teal upholstered bench on left, a modern reception counter with tablet and key-card terminal along rear-left wall, a glass water dispenser and luggage shelves rear-right, abstract prints, indoor ficus. A low rectangular coffee table is on the LEFT half of the walkable floor at x=108,y=160. No antique furniture or fireplace.",
+          "obstacles": [
+            [
+              80,
+              144,
+              64,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "north": [
+              238,
+              84
+            ],
+            "west": [
+              14,
+              174
+            ],
+            "east": [
+              370,
+              174
+            ]
+          }
+        },
+        {
+          "name": "Breakfast room",
+          "art": "room-modern-inn-1",
+          "description": "A modern hotel breakfast room, pale oak floor, white buffet cabinets and compact coffee machine along rear wall, contemporary framed travel photos, two square dining tables on the floor at x=120 and x=264, both y=166, mismatched colorful chairs, simple pendant lights, minimal Scandinavian decor.",
+          "obstacles": [
+            [
+              96,
+              144,
+              48,
+              40
+            ],
+            [
+              240,
+              144,
+              48,
+              40
+            ]
+          ],
+          "paintedDoors": {
+            "north": [
+              188,
+              85
+            ],
+            "west": [
+              18,
+              174
+            ]
+          }
+        },
+        {
+          "name": "Laundry room",
+          "art": "room-modern-inn-2",
+          "description": "A utilitarian contemporary hotel laundry, blue-gray vinyl floor, stacked white washing machines and dryers along rear wall, detergent shelving on right, wheeled linen hamper at far left, bright ceiling strip lights, folded towels, one narrow folding island on the LEFT at x=112,y=160.",
+          "obstacles": [
+            [
+              88,
+              136,
+              48,
+              48
+            ]
+          ],
+          "paintedDoors": {
+            "east": [
+              370,
+              174
+            ]
+          }
+        },
+        {
+          "name": "Guest room",
+          "art": "room-modern-inn-3",
+          "description": "A modern compact hotel twin guest room, muted blue carpet, TWO single beds against rear wall left and right, reading lights built into headboards, flat-screen wall TV at far-left edge, small modern desk on far-right edge, luggage rack, roller blinds and simple modern prints, clear middle aisle. No ornate bed or old wallpaper.",
+          "obstacles": [],
+          "paintedDoors": {
+            "north": [
+              188,
+              98
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "cafe",
+      "name": "Juniper Coffee",
+      "job": "barista",
+      "color": "#a98578",
+      "open": 7,
+      "close": 21,
+      "x": 282,
+      "y": 244,
+      "w": 160,
+      "h": 96,
+      "art": "building-modern-cafe",
+      "links": [
+        [
+          0,
+          "north",
+          1,
+          "south",
+          [
+            188,
+            93
+          ],
+          [
+            192,
+            228
+          ]
+        ],
+        [
+          1,
+          "east",
+          2,
+          "west",
+          [
+            370,
+            176
+          ],
+          [
+            14,
+            204
+          ]
+        ],
+        [
+          0,
+          "west",
+          3,
+          "east",
+          [
+            15,
+            175
+          ],
+          [
+            370,
+            205
+          ]
+        ]
+      ],
+      "rooms": [
+        {
+          "name": "Coffee room",
+          "art": "room-modern-cafe-0",
+          "description": "A present-day independent cafe, pale oak and sage-green decor, a modern espresso counter along rear wall, matte black equipment, takeaway cups, chalk menu with abstract marks only, contemporary pendant lights. Two round cafe tables in the middle-left at x=116,y=160 and lower-right at x=264,y=195, each with slim modern chairs.",
+          "obstacles": [
+            [
+              96,
+              144,
+              40,
+              32
+            ],
+            [
+              240,
+              176,
+              48,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "north": [
+              188,
+              93
+            ],
+            "west": [
+              15,
+              175
+            ]
+          }
+        },
+        {
+          "name": "Kitchen",
+          "art": "room-modern-cafe-1",
+          "description": "A contemporary cafe kitchen with brushed stainless-steel worktops along rear wall, modern oven and dishwasher, pale ceramic wall tiles, extraction hood, stacked cups, a stainless central preparation island at x=192,y=160 with a cutting board and bowls.",
+          "obstacles": [
+            [
+              144,
+              144,
+              96,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "east": [
+              370,
+              176
+            ]
+          }
+        },
+        {
+          "name": "Pantry",
+          "art": "room-modern-cafe-2",
+          "description": "A compact modern cafe pantry with pale gray concrete floor, practical steel shelves of milk cartons, coffee bags and takeaway packaging along rear and left walls, a commercial upright fridge on far right visibly an appliance, food-safe plastic bins. A low stack of sealed coffee boxes sits on the LEFT floor at x=112,y=176.",
+          "obstacles": [
+            [
+              88,
+              160,
+              48,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "west": [
+              14,
+              204
+            ]
+          }
+        },
+        {
+          "name": "Staff room",
+          "art": "room-modern-cafe-3",
+          "description": "A casual modern cafe staff room, warm vinyl floor, rear-wall lockers and coat hooks, small microwave and kettle on rear countertop, pinboard of abstract notices, a teal sofa along far left edge, a compact square lunch table at x=252,y=160, phone charging cables and backpacks.",
+          "obstacles": [
+            [
+              224,
+              144,
+              56,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "east": [
+              370,
+              205
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "post",
+      "name": "Post Office",
+      "job": "postal worker",
+      "color": "#7387a1",
+      "open": 8,
+      "close": 18,
+      "x": 484,
+      "y": 244,
+      "w": 176,
+      "h": 96,
+      "art": "building-modern-post",
+      "links": [
+        [
+          0,
+          "north",
+          1,
+          "west",
+          [
+            228,
+            73
+          ],
+          [
+            12,
+            178
+          ]
+        ],
+        [
+          1,
+          "east",
+          2,
+          "west",
+          [
+            370,
+            174
+          ],
+          [
+            15,
+            184
+          ]
+        ],
+        [
+          2,
+          "south",
+          3,
+          "east",
+          [
+            192,
+            228
+          ],
+          [
+            370,
+            188
+          ]
+        ]
+      ],
+      "rooms": [
+        {
+          "name": "Public counter",
+          "art": "room-modern-post-0",
+          "description": "A modern post-office public room, light gray tile floor with red queue floor dots, clean public service desk against back wall left, digital scale and receipt printer, parcel self-service screen and mailing supplies at far right, simple red-white branding with no text. One low packaging table on LEFT floor at x=112,y=168.",
+          "obstacles": [
+            [
+              88,
+              152,
+              48,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "north": [
+              228,
+              73
+            ]
+          }
+        },
+        {
+          "name": "Sorting room",
+          "art": "room-modern-post-1",
+          "description": "A present-day postal sorting room, practical pale-blue vinyl floor, rear wall cubby pigeonholes filled with letters, steel mail trolleys at side edges, labels only abstract color marks, a long central sorting table at x=192,y=160 covered with neat parcels.",
+          "obstacles": [
+            [
+              128,
+              144,
+              128,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "west": [
+              12,
+              178
+            ],
+            "east": [
+              370,
+              174
+            ]
+          }
+        },
+        {
+          "name": "Parcel store",
+          "art": "room-modern-post-2",
+          "description": "A modern parcel storeroom with industrial gray floor, tall metal shelving of varied taped cardboard parcels against rear and sides, a hand truck at far left, a low shrink-wrapped parcel pallet in the CENTER at x=192,y=166, overhead fluorescent fixture.",
+          "obstacles": [
+            [
+              160,
+              144,
+              64,
+              48
+            ]
+          ],
+          "paintedDoors": {
+            "west": [
+              15,
+              184
+            ]
+          }
+        },
+        {
+          "name": "Postmaster office",
+          "art": "room-modern-post-3",
+          "description": "A contemporary small postal office, pale wood laminate, practical rear-left desk with monitor and paperwork trays, modern swivel chair, rear-right filing cabinets and printer, plain framed postal route diagram with no words, a guest chair near LEFT middle, clear right-side floor.",
+          "obstacles": [
+            [
+              88,
+              144,
+              40,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "east": [
+              370,
+              188
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "guards",
+      "name": "Police Station",
+      "job": "guard",
+      "color": "#8e8b96",
+      "open": 0,
+      "close": 24,
+      "x": 580,
+      "y": 720,
+      "w": 192,
+      "h": 112,
+      "art": "building-modern-guards",
+      "links": [
+        [
+          0,
+          "north",
+          1,
+          "west",
+          [
+            238,
+            83
+          ],
+          [
+            15,
+            152
+          ]
+        ],
+        [
+          1,
+          "east",
+          2,
+          "west",
+          [
+            370,
+            157
+          ],
+          [
+            14,
+            150
+          ]
+        ],
+        [
+          0,
+          "west",
+          3,
+          "east",
+          [
+            14,
+            143
+          ],
+          [
+            370,
+            166
+          ]
+        ]
+      ],
+      "rooms": [
+        {
+          "name": "Front desk",
+          "art": "room-modern-guards-0",
+          "description": "A modern neighborhood police reception, pale-gray tile, navy-and-white walls, glass-protected service counter along rear wall, small computer terminal, public noticeboard with abstract colored papers, molded blue waiting seats on far left, modern security camera, one low queue barrier centered LEFT at x=112,y=176.",
+          "obstacles": [
+            [
+              80,
+              160,
+              64,
+              16
+            ]
+          ],
+          "paintedDoors": {
+            "north": [
+              238,
+              83
+            ],
+            "west": [
+              14,
+              143
+            ]
+          }
+        },
+        {
+          "name": "Operations room",
+          "art": "room-modern-guards-1",
+          "description": "A present-day police operations room with blue-gray flooring, rear wall radio console and modest CCTV monitors, contemporary workstations, a whiteboard town map with no labels, a long central briefing table at x=192,y=168 with radios and paper folders, practical office lighting.",
+          "obstacles": [
+            [
+              128,
+              152,
+              128,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "west": [
+              15,
+              152
+            ],
+            "east": [
+              370,
+              157
+            ]
+          }
+        },
+        {
+          "name": "Equipment room",
+          "art": "room-modern-guards-2",
+          "description": "A modern police equipment room, gray non-slip floor, rear wall secure lockers with small shield emblems, radios and body cameras charging on rear worktop, practical gear shelving, an ordinary stainless inspection bench in the LEFT middle at x=120,y=160. No medieval armory.",
+          "obstacles": [
+            [
+              88,
+              144,
+              64,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "west": [
+              14,
+              150
+            ]
+          }
+        },
+        {
+          "name": "Break room",
+          "art": "room-modern-guards-3",
+          "description": "A modern police break room, beige vinyl floor, rear kitchenette with coffee maker and microwave, staff lockers on right, pale blue fabric sofa at far left, a round lunch table on the RIGHT half at x=256,y=174, jackets on hooks, neat modern bulletin board.",
+          "obstacles": [
+            [
+              232,
+              152,
+              48,
+              48
+            ]
+          ],
+          "paintedDoors": {
+            "east": [
+              370,
+              166
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "school",
+      "name": "Village School",
+      "job": "teacher",
+      "color": "#7b9391",
+      "open": 8,
+      "close": 17,
+      "x": 64,
+      "y": 720,
+      "w": 240,
+      "h": 112,
+      "art": "building-modern-school",
+      "links": [
+        [
+          0,
+          "north",
+          3,
+          "south",
+          [
+            194,
+            96
+          ],
+          [
+            192,
+            228
+          ]
+        ],
+        [
+          0,
+          "west",
+          2,
+          "east",
+          [
+            14,
+            146
+          ],
+          [
+            370,
+            144
+          ]
+        ],
+        [
+          2,
+          "south",
+          1,
+          "west",
+          [
+            192,
+            228
+          ],
+          [
+            14,
+            145
+          ]
+        ]
+      ],
+      "rooms": [
+        {
+          "name": "Entrance hall",
+          "art": "room-modern-school-0",
+          "description": "A modern village school entrance hall with warm cream tile and a colorful geometric floor stripe, low cubby lockers along rear wall, coat pegs and backpacks, a simple reception window rear-left, colorful children\u2019s abstract art, a low display plinth in LEFT middle at x=112,y=168. No old-fashioned bell tower or fantasy decor.",
+          "obstacles": [
+            [
+              88,
+              152,
+              48,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "north": [
+              194,
+              96
+            ],
+            "west": [
+              14,
+              146
+            ]
+          }
+        },
+        {
+          "name": "Classroom",
+          "art": "room-modern-school-1",
+          "description": "A present-day classroom with a whiteboard and digital screen at rear wall, colorful storage trays and globe, pale vinyl floor, FOUR compact student desks in a two-by-two arrangement: x=120 and x=264, y=136 and y=192. Modern plastic chairs and school supplies, clear center aisle.",
+          "obstacles": [
+            [
+              104,
+              120,
+              32,
+              32
+            ],
+            [
+              248,
+              120,
+              32,
+              32
+            ],
+            [
+              104,
+              176,
+              32,
+              32
+            ],
+            [
+              248,
+              176,
+              32,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "west": [
+              14,
+              145
+            ]
+          }
+        },
+        {
+          "name": "Library",
+          "art": "room-modern-school-2",
+          "description": "A modern small school library, muted green carpet, low bright bookcases along rear and far sides, contemporary posters with abstract marks, beanbags in corners, TWO low central book display islands centered x=128 and x=256 at y=168, clear center and side aisles.",
+          "obstacles": [
+            [
+              104,
+              144,
+              48,
+              48
+            ],
+            [
+              232,
+              144,
+              48,
+              48
+            ]
+          ],
+          "paintedDoors": {
+            "east": [
+              370,
+              144
+            ]
+          }
+        },
+        {
+          "name": "Staff room",
+          "art": "room-modern-school-3",
+          "description": "A contemporary school staff room with pale wood floor, rear worktops and photocopier, teacher mail cubbies, modern colorful mugs and kettle, a white oval shared table across middle x=192,y=168 with papers and laptop, simple modern chairs, no antique desks.",
+          "obstacles": [
+            [
+              136,
+              152,
+              112,
+              32
+            ]
+          ],
+          "paintedDoors": {}
+        }
+      ]
+    },
+    {
+      "id": "market",
+      "name": "Corner Market",
+      "job": "market trader",
+      "color": "#a98578",
+      "open": 8,
+      "close": 19,
+      "x": 1090,
+      "y": 236,
+      "w": 256,
+      "h": 112,
+      "art": "building-modern-market",
+      "links": [
+        [
+          0,
+          "north",
+          1,
+          "east",
+          [
+            189,
+            70
+          ],
+          [
+            370,
+            177
+          ]
+        ],
+        [
+          0,
+          "west",
+          3,
+          "east",
+          [
+            12,
+            210
+          ],
+          [
+            370,
+            173
+          ]
+        ],
+        [
+          1,
+          "south",
+          2,
+          "west",
+          [
+            192,
+            228
+          ],
+          [
+            14,
+            156
+          ]
+        ]
+      ],
+      "rooms": [
+        {
+          "name": "Shop floor",
+          "art": "room-modern-market-0",
+          "description": "A current-day neighborhood grocery shop, cream polished tile, checkout counter and modern register against rear-left wall, wall fridges at rear-right, product shelves along side edges, TWO central grocery gondolas centered x=120 and x=264, stretching from y=128 to y=192, wide center aisle and visible food packaging.",
+          "obstacles": [
+            [
+              104,
+              120,
+              32,
+              80
+            ],
+            [
+              248,
+              120,
+              32,
+              80
+            ]
+          ],
+          "paintedDoors": {
+            "north": [
+              189,
+              70
+            ],
+            "west": [
+              12,
+              210
+            ]
+          }
+        },
+        {
+          "name": "Cold room",
+          "art": "room-modern-market-1",
+          "description": "A modern grocery cold room with pale blue insulated panels, gray non-slip floor, metal racks with milk crates, labeled plastic vegetable tubs and hanging strip-curtain material only as cabinet detail, one low wheeled produce trolley on LEFT floor at x=112,y=176. No doorway drawn.",
+          "obstacles": [
+            [
+              88,
+              160,
+              48,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "east": [
+              370,
+              177
+            ]
+          }
+        },
+        {
+          "name": "Stockroom",
+          "art": "room-modern-market-2",
+          "description": "A present-day grocery stockroom, practical concrete floor, metal back shelving with cans, paper towels and cereal boxes, pallet jack against side wall, a CENTRAL pallet of neatly shrink-wrapped cartons at x=192,y=172, industrial ceiling lights and fire extinguisher.",
+          "obstacles": [
+            [
+              160,
+              144,
+              64,
+              48
+            ]
+          ],
+          "paintedDoors": {
+            "west": [
+              14,
+              156
+            ]
+          }
+        },
+        {
+          "name": "Manager office",
+          "art": "room-modern-market-3",
+          "description": "A compact modern supermarket manager\u2019s office, beige carpet, plain rear desk with monitor and calculator, noticeboards with abstract schedules, filing drawers rear-right, a small security monitor, a round staff-discussion table on LEFT floor at x=120,y=168, contemporary practical furnishings.",
+          "obstacles": [
+            [
+              96,
+              144,
+              48,
+              48
+            ]
+          ],
+          "paintedDoors": {
+            "east": [
+              370,
+              173
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "froyo",
+      "name": "Moonberry Froyo",
+      "job": "froyo server",
+      "color": "#7387a1",
+      "open": 11,
+      "close": 23,
+      "x": 690,
+      "y": 252,
+      "w": 160,
+      "h": 96,
+      "art": "building-modern-froyo",
+      "links": [
+        [
+          0,
+          "north",
+          1,
+          "east",
+          [
+            188,
+            88
+          ],
+          [
+            370,
+            196
+          ]
+        ],
+        [
+          0,
+          "west",
+          3,
+          "east",
+          [
+            14,
+            171
+          ],
+          [
+            370,
+            198
+          ]
+        ],
+        [
+          1,
+          "south",
+          2,
+          "west",
+          [
+            192,
+            228
+          ],
+          [
+            14,
+            208
+          ]
+        ]
+      ],
+      "rooms": [
+        {
+          "name": "Froyo counter",
+          "art": "room-modern-froyo-0",
+          "description": "A distinctly modern frozen-yogurt shop, pale pink and mint tiles, a rear-wall row of colorful self-serve frozen-yogurt machines, chilled topping bins, stackable cups and contemporary pendant lamps, big simple yogurt-cup emblem, two small round tables on LEFT x=112,y=168 and RIGHT x=272,y=168, modern stools.",
+          "obstacles": [
+            [
+              96,
+              152,
+              32,
+              32
+            ],
+            [
+              256,
+              152,
+              32,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "north": [
+              188,
+              88
+            ],
+            "west": [
+              14,
+              171
+            ]
+          }
+        },
+        {
+          "name": "Preparation room",
+          "art": "room-modern-froyo-1",
+          "description": "A modern froyo food-prep room, white tile and mint accents, stainless rear worktops with blenders and fruit bowls, washable containers and a modern sink, one narrow CENTRAL stainless preparation island x=192,y=168, bright clean utilitarian lighting.",
+          "obstacles": [
+            [
+              152,
+              152,
+              80,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "east": [
+              370,
+              196
+            ]
+          }
+        },
+        {
+          "name": "Freezer",
+          "art": "room-modern-froyo-2",
+          "description": "A modern walk-in frozen-yogurt freezer interior, pale blue insulated wall panels, stainless shelving of frozen fruit bags and sealed yogurt tubs along rear and edges, condensation detail, grippy gray floor, a small low wheeled stock trolley on RIGHT x=264,y=176. No opening, archway or door.",
+          "obstacles": [
+            [
+              240,
+              160,
+              48,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "west": [
+              14,
+              208
+            ]
+          }
+        },
+        {
+          "name": "Staff room",
+          "art": "room-modern-froyo-3",
+          "description": "A modern froyo staff room, soft lavender walls and light laminate floor, rear lockers with backpacks and spare pink aprons, a compact microwave and kettle, bright pinboard of abstract notes, left-edge fabric bench, small square lunch table on LEFT x=120,y=168, phone chargers.",
+          "obstacles": [
+            [
+              96,
+              144,
+              48,
+              48
+            ]
+          ],
+          "paintedDoors": {
+            "east": [
+              370,
+              198
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "office",
+      "name": "Little Cloud Labs",
+      "job": "engineer",
+      "color": "#8e8b96",
+      "open": 9,
+      "close": 20,
+      "x": 338,
+      "y": 712,
+      "w": 208,
+      "h": 112,
+      "art": "building-modern-office",
+      "links": [
+        [
+          0,
+          "east",
+          1,
+          "west",
+          [
+            370,
+            184
+          ],
+          [
+            14,
+            184
+          ]
+        ],
+        [
+          0,
+          "north",
+          3,
+          "south",
+          [
+            207,
+            89
+          ],
+          [
+            192,
+            228
+          ]
+        ],
+        [
+          1,
+          "south",
+          2,
+          "east",
+          [
+            192,
+            228
+          ],
+          [
+            370,
+            158
+          ]
+        ]
+      ],
+      "rooms": [
+        {
+          "name": "Open office",
+          "art": "room-modern-office-0",
+          "description": "A small present-day tech-company open office, pale oak floor, modern rear workstations with multiple monitors, acoustic panels and plants, TWO workbench pods on the floor at x=120 and x=264,y=168, laptops and tidy cables, ergonomic chairs, contemporary restrained colors.",
+          "obstacles": [
+            [
+              96,
+              144,
+              48,
+              48
+            ],
+            [
+              240,
+              144,
+              48,
+              48
+            ]
+          ],
+          "paintedDoors": {
+            "north": [
+              207,
+              89
+            ],
+            "east": [
+              370,
+              184
+            ]
+          }
+        },
+        {
+          "name": "Meeting room",
+          "art": "room-modern-office-1",
+          "description": "A contemporary tech office meeting room with glass-style wall panels rendered as solid pale walls, wall-mounted screen at rear, whiteboard with abstract diagram, one long central oval meeting table x=192,y=168, modern rolling chairs, video-call camera and a succulent.",
+          "obstacles": [
+            [
+              128,
+              152,
+              128,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "west": [
+              14,
+              184
+            ]
+          }
+        },
+        {
+          "name": "Kitchenette",
+          "art": "room-modern-office-2",
+          "description": "A modern tech-company kitchenette, white cabinets and oak worktop across rear wall, stainless fridge as obvious appliance, microwave, espresso machine and reusable bottles, pale terrazzo floor, a small breakfast island on LEFT x=120,y=168 with two modern stools, plants.",
+          "obstacles": [
+            [
+              96,
+              144,
+              48,
+              48
+            ]
+          ],
+          "paintedDoors": {
+            "east": [
+              370,
+              158
+            ]
+          }
+        },
+        {
+          "name": "Server room",
+          "art": "room-modern-office-3",
+          "description": "A modern small server room with two racks of dark servers against rear wall, restrained tiny blue status lights, AC vent, raised gray floor tiles and tidy overhead cable tray, a narrow wheeled equipment bench on RIGHT x=264,y=168. No neon cyberpunk setting.",
+          "obstacles": [
+            [
+              240,
+              144,
+              48,
+              48
+            ]
+          ],
+          "paintedDoors": {}
+        }
+      ]
+    },
+    {
+      "id": "rowan",
+      "name": "Rowan House",
+      "job": "resident",
+      "color": "#7b9391",
+      "open": 0,
+      "close": 24,
+      "x": 1032,
+      "y": 728,
+      "w": 176,
+      "h": 96,
+      "art": "building-modern-rowan",
+      "links": [
+        [
+          0,
+          "north",
+          1,
+          "north",
+          [
+            181,
+            86
+          ],
+          [
+            177,
+            84
+          ]
+        ],
+        [
+          0,
+          "west",
+          2,
+          "east",
+          [
+            14,
+            175
+          ],
+          [
+            365,
+            126
+          ]
+        ],
+        [
+          0,
+          "east",
+          3,
+          "west",
+          [
+            369,
+            153
+          ],
+          [
+            14,
+            155
+          ]
+        ],
+        [
+          1,
+          "west",
+          2,
+          "south",
+          [
+            15,
+            182
+          ],
+          [
+            192,
+            228
+          ]
+        ],
+        [
+          1,
+          "east",
+          3,
+          "south",
+          [
+            370,
+            187
+          ],
+          [
+            192,
+            228
+          ]
+        ]
+      ],
+      "rooms": [
+        {
+          "name": "Living room",
+          "art": "room-modern-rowan-0",
+          "description": "A lived-in contemporary family living room, light oak floor, a modern gray fabric sofa against far left wall, a flat-screen TV and low media cabinet on rear wall, shelves of books and houseplants, family photos, a rectangular coffee table LEFT of center x=128,y=168, a muted rust rug. No antique fireplace.",
+          "obstacles": [
+            [
+              96,
+              152,
+              64,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "north": [
+              181,
+              86
+            ],
+            "west": [
+              14,
+              175
+            ],
+            "east": [
+              369,
+              153
+            ]
+          }
+        },
+        {
+          "name": "Kitchen",
+          "art": "room-modern-rowan-1",
+          "description": "A bright modern family kitchen, white and oak cabinetry across rear wall, induction hob, microwave, stainless fridge and a cluttered noticeboard, pale ceramic floor, a small CENTER breakfast island x=192,y=164 with a fruit bowl and two contemporary stools.",
+          "obstacles": [
+            [
+              152,
+              144,
+              80,
+              40
+            ]
+          ],
+          "paintedDoors": {
+            "north": [
+              177,
+              84
+            ],
+            "west": [
+              15,
+              182
+            ],
+            "east": [
+              370,
+              187
+            ]
+          }
+        },
+        {
+          "name": "Study",
+          "art": "room-modern-rowan-2",
+          "description": "A contemporary home study, pale wood floor, rear computer desk with modern monitor, printer on right cabinet, bookcase with colorful books, sewing/craft supplies at far left, a comfy reading chair on RIGHT middle x=272,y=176, a simple geometric rug and daylight blinds.",
+          "obstacles": [
+            [
+              248,
+              152,
+              48,
+              48
+            ]
+          ],
+          "paintedDoors": {
+            "east": [
+              365,
+              126
+            ]
+          }
+        },
+        {
+          "name": "Bedroom",
+          "art": "room-modern-rowan-3",
+          "description": "A modern family bedroom, subdued teal carpet, a simple modern double bed centered toward the rear wall with plain headboard and mustard duvet, compact bedside lights, a wardrobe and dresser along side edges, framed abstract prints and roller blinds, clear lower floor, no antique wallpaper.",
+          "obstacles": [],
+          "paintedDoors": {
+            "west": [
+              14,
+              155
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "willow",
+      "name": "Willow House",
+      "job": "resident",
+      "color": "#a98578",
+      "open": 0,
+      "close": 24,
+      "x": 1242,
+      "y": 728,
+      "w": 176,
+      "h": 96,
+      "art": "building-modern-willow",
+      "links": [
+        [
+          0,
+          "north",
+          2,
+          "north",
+          [
+            210,
+            86
+          ],
+          [
+            241,
+            94
+          ]
+        ],
+        [
+          2,
+          "east",
+          3,
+          "west",
+          [
+            369,
+            174
+          ],
+          [
+            16,
+            178
+          ]
+        ],
+        [
+          3,
+          "north",
+          1,
+          "west",
+          [
+            194,
+            94
+          ],
+          [
+            15,
+            177
+          ]
+        ]
+      ],
+      "rooms": [
+        {
+          "name": "Living room",
+          "art": "room-modern-willow-0",
+          "description": "A different contemporary apartment living room, sage painted walls, cream tile floor, a navy sectional sofa against rear-left, a low modern bookcase rear-right, compact television, plants and casual artwork, an oval coffee table on RIGHT middle x=256,y=168, a pale blue geometric rug.",
+          "obstacles": [
+            [
+              224,
+              152,
+              64,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "north": [
+              210,
+              86
+            ]
+          }
+        },
+        {
+          "name": "Kitchen",
+          "art": "room-modern-willow-1",
+          "description": "A small modern kitchen with sage lower cabinets and white upper cabinets along rear and far right walls, a toaster, modern gas stove, fridge with abstract magnets, warm terracotta tile floor. A compact round dining table sits LEFT of center x=120,y=168 with three modern chairs.",
+          "obstacles": [
+            [
+              96,
+              144,
+              48,
+              48
+            ]
+          ],
+          "paintedDoors": {
+            "west": [
+              15,
+              177
+            ]
+          }
+        },
+        {
+          "name": "Study",
+          "art": "room-modern-willow-2",
+          "description": "A current-day home workspace with muted lavender walls and oak floor, rear desk with laptop and external monitor, modern task lamp, sketchbooks, a digital keyboard tucked on the far-left wall, a storage shelf rear-right, a small square hobby table CENTER x=192,y=168 with drawing tools.",
+          "obstacles": [
+            [
+              168,
+              144,
+              48,
+              48
+            ]
+          ],
+          "paintedDoors": {
+            "north": [
+              241,
+              94
+            ],
+            "east": [
+              369,
+              174
+            ]
+          }
+        },
+        {
+          "name": "Bedroom",
+          "art": "room-modern-willow-3",
+          "description": "A distinct modern bedroom with pale wood floor, a low simple bed in the rear-left with blue quilt, a small rear-right desk and laptop, a contemporary dresser, laundry basket in corner, posters of abstract landscapes, venetian blinds, a soft green rug and clear lower center floor.",
+          "obstacles": [],
+          "paintedDoors": {
+            "north": [
+              194,
+              94
+            ],
+            "west": [
+              16,
+              178
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "clinic",
+      "name": "St. Agnes Clinic",
+      "job": "nurse",
+      "color": "#7387a1",
+      "open": 7,
+      "close": 22,
+      "x": 806,
+      "y": 720,
+      "w": 192,
+      "h": 112,
+      "art": "building-modern-clinic",
+      "links": [
+        [
+          0,
+          "north",
+          1,
+          "east",
+          [
+            195,
+            87
+          ],
+          [
+            370,
+            173
+          ]
+        ],
+        [
+          0,
+          "west",
+          3,
+          "east",
+          [
+            15,
+            178
+          ],
+          [
+            370,
+            190
+          ]
+        ],
+        [
+          1,
+          "south",
+          2,
+          "west",
+          [
+            192,
+            228
+          ],
+          [
+            16,
+            161
+          ]
+        ]
+      ],
+      "rooms": [
+        {
+          "name": "Waiting room",
+          "art": "room-modern-clinic-0",
+          "description": "A current-day neighborhood medical waiting room, pale mint walls, clean cream tile, simple reception counter at rear, a wall display with abstract queue shapes, contemporary plastic waiting chairs along far left and right edges, health posters with no readable text, a low magazine table LEFT x=120,y=176, a potted plant.",
+          "obstacles": [
+            [
+              96,
+              160,
+              48,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "north": [
+              195,
+              87
+            ],
+            "west": [
+              15,
+              178
+            ]
+          }
+        },
+        {
+          "name": "Consulting room",
+          "art": "room-modern-clinic-1",
+          "description": "A modern family-doctor consulting room, pale blue walls and beige linoleum, a practical rear desk with monitor and medical charts, a modern examination couch along rear-right wall, wall-mounted instrument set, hand-wash sink on left, a guest chair LEFT middle x=112,y=168, clean modern cabinets.",
+          "obstacles": [
+            [
+              88,
+              144,
+              48,
+              40
+            ]
+          ],
+          "paintedDoors": {
+            "east": [
+              370,
+              173
+            ]
+          }
+        },
+        {
+          "name": "Treatment room",
+          "art": "room-modern-clinic-2",
+          "description": "A modern clinic treatment room, white/mint walls and gray medical vinyl floor, rear storage cabinets and wall monitor, treatment couch near rear-left, a compact stainless instrument trolley on RIGHT middle x=264,y=168, sanitizer and medical supply containers, bright even ceiling lighting.",
+          "obstacles": [
+            [
+              240,
+              152,
+              48,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "west": [
+              16,
+              161
+            ]
+          }
+        },
+        {
+          "name": "Staff room",
+          "art": "room-modern-clinic-3",
+          "description": "A modern clinic staff break room, pale wood laminate floor, rear kitchenette with microwave and kettle, medical scrub lockers on far right, pinboard of abstract shift notes, a calm green sofa at far left, a compact CENTRAL square lunch table x=192,y=168 with mugs and a magazine.",
+          "obstacles": [
+            [
+              168,
+              144,
+              48,
+              48
+            ]
+          ],
+          "paintedDoors": {
+            "east": [
+              370,
+              190
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "bakery",
+      "name": "The Early Bird",
+      "job": "baker",
+      "color": "#8e8b96",
+      "open": 5,
+      "close": 18,
+      "x": 886,
+      "y": 244,
+      "w": 176,
+      "h": 96,
+      "art": "building-modern-bakery",
+      "links": [
+        [
+          0,
+          "north",
+          1,
+          "east",
+          [
+            195,
+            83
+          ],
+          [
+            370,
+            170
+          ]
+        ],
+        [
+          0,
+          "west",
+          3,
+          "east",
+          [
+            15,
+            173
+          ],
+          [
+            370,
+            185
+          ]
+        ],
+        [
+          1,
+          "south",
+          2,
+          "west",
+          [
+            192,
+            228
+          ],
+          [
+            16,
+            158
+          ]
+        ]
+      ],
+      "rooms": [
+        {
+          "name": "Bakery shop",
+          "art": "room-modern-bakery-0",
+          "description": "A current-day neighborhood bakery interior, warm light wood floor, modern glass bread and pastry display counter across rear wall, compact register, shelves of contemporary paper bread bags, simple mustard wall accents and pendant lights, two compact cafe tables LEFT x=112,y=168 and RIGHT x=272,y=192, no old hearth.",
+          "obstacles": [
+            [
+              96,
+              152,
+              32,
+              32
+            ],
+            [
+              256,
+              176,
+              32,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "north": [
+              195,
+              83
+            ],
+            "west": [
+              15,
+              173
+            ]
+          }
+        },
+        {
+          "name": "Bake room",
+          "art": "room-modern-bakery-1",
+          "description": "A modern working bakery kitchen, light-gray food-safe floor, stainless rear worktops, commercial electric ovens and mixer at rear, white tiled walls, practical trays and ingredients, a long CENTRAL dough-prep table x=192,y=168 with flour and pastry tools, no wood-fired fireplace.",
+          "obstacles": [
+            [
+              128,
+              152,
+              128,
+              32
+            ]
+          ],
+          "paintedDoors": {
+            "east": [
+              370,
+              170
+            ]
+          }
+        },
+        {
+          "name": "Flour store",
+          "art": "room-modern-bakery-2",
+          "description": "A practical contemporary bakery dry-goods store, beige non-slip floor, steel shelving of sealed flour sacks, sugar tubs and food containers across rear and side walls, a hand trolley, a low flour-sack pallet on LEFT x=112,y=176, bright utilitarian overhead light.",
+          "obstacles": [
+            [
+              88,
+              152,
+              48,
+              48
+            ]
+          ],
+          "paintedDoors": {
+            "west": [
+              16,
+              158
+            ]
+          }
+        },
+        {
+          "name": "Rest room",
+          "art": "room-modern-bakery-3",
+          "description": "A modern bakery staff rest room, muted mustard walls and wood laminate floor, rear lockers and shelves, practical kitchenette with kettle, a small teal sofa on the LEFT edge, a round lunch table on RIGHT x=256,y=168, aprons on hooks, contemporary framed print.",
+          "obstacles": [
+            [
+              232,
+              144,
+              48,
+              48
+            ]
+          ],
+          "paintedDoors": {
+            "east": [
+              370,
+              185
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
+;window.VESPER_ART={"ground-grass-v2": {"url": "assets/ground-grass-v2.png", "width": 96, "height": 96}, "tree-v3": {"url": "assets/tree-v3.png", "width": 96, "height": 103}, "building-modern-inn": {"url": "assets/modern/building-modern-inn.png", "width": 216, "height": 164}, "room-modern-inn-0": {"url": "assets/modern/room-modern-inn-0.png", "width": 384, "height": 256}, "room-modern-inn-1": {"url": "assets/modern/room-modern-inn-1.png", "width": 384, "height": 256}, "room-modern-inn-2": {"url": "assets/modern/room-modern-inn-2.png", "width": 384, "height": 256}, "room-modern-inn-3": {"url": "assets/modern/room-modern-inn-3.png", "width": 384, "height": 256}, "building-modern-cafe": {"url": "assets/modern/building-modern-cafe.png", "width": 200, "height": 110}, "room-modern-cafe-0": {"url": "assets/modern/room-modern-cafe-0.png", "width": 384, "height": 256}, "room-modern-cafe-1": {"url": "assets/modern/room-modern-cafe-1.png", "width": 384, "height": 256}, "room-modern-cafe-2": {"url": "assets/modern/room-modern-cafe-2.png", "width": 384, "height": 256}, "room-modern-cafe-3": {"url": "assets/modern/room-modern-cafe-3.png", "width": 384, "height": 256}, "building-modern-post": {"url": "assets/modern/building-modern-post.png", "width": 216, "height": 104}, "room-modern-post-0": {"url": "assets/modern/room-modern-post-0.png", "width": 384, "height": 256}, "room-modern-post-1": {"url": "assets/modern/room-modern-post-1.png", "width": 384, "height": 256}, "room-modern-post-2": {"url": "assets/modern/room-modern-post-2.png", "width": 384, "height": 256}, "room-modern-post-3": {"url": "assets/modern/room-modern-post-3.png", "width": 384, "height": 256}, "building-modern-guards": {"url": "assets/modern/building-modern-guards.png", "width": 232, "height": 209}, "room-modern-guards-0": {"url": "assets/modern/room-modern-guards-0.png", "width": 384, "height": 256}, "room-modern-guards-1": {"url": "assets/modern/room-modern-guards-1.png", "width": 384, "height": 256}, "room-modern-guards-2": {"url": "assets/modern/room-modern-guards-2.png", "width": 384, "height": 256}, "room-modern-guards-3": {"url": "assets/modern/room-modern-guards-3.png", "width": 384, "height": 256}, "building-modern-school": {"url": "assets/modern/building-modern-school.png", "width": 280, "height": 116}, "room-modern-school-0": {"url": "assets/modern/room-modern-school-0.png", "width": 384, "height": 256}, "room-modern-school-1": {"url": "assets/modern/room-modern-school-1.png", "width": 384, "height": 256}, "room-modern-school-2": {"url": "assets/modern/room-modern-school-2.png", "width": 384, "height": 256}, "room-modern-school-3": {"url": "assets/modern/room-modern-school-3.png", "width": 384, "height": 256}, "building-modern-market": {"url": "assets/modern/building-modern-market.png", "width": 296, "height": 122}, "room-modern-market-0": {"url": "assets/modern/room-modern-market-0.png", "width": 384, "height": 256}, "room-modern-market-1": {"url": "assets/modern/room-modern-market-1.png", "width": 384, "height": 256}, "room-modern-market-2": {"url": "assets/modern/room-modern-market-2.png", "width": 384, "height": 256}, "room-modern-market-3": {"url": "assets/modern/room-modern-market-3.png", "width": 384, "height": 256}, "building-modern-froyo": {"url": "assets/modern/building-modern-froyo.png", "width": 200, "height": 124}, "room-modern-froyo-0": {"url": "assets/modern/room-modern-froyo-0.png", "width": 384, "height": 256}, "room-modern-froyo-1": {"url": "assets/modern/room-modern-froyo-1.png", "width": 384, "height": 256}, "room-modern-froyo-2": {"url": "assets/modern/room-modern-froyo-2.png", "width": 384, "height": 256}, "room-modern-froyo-3": {"url": "assets/modern/room-modern-froyo-3.png", "width": 384, "height": 256}, "building-modern-office": {"url": "assets/modern/building-modern-office.png", "width": 248, "height": 201}, "room-modern-office-0": {"url": "assets/modern/room-modern-office-0.png", "width": 384, "height": 256}, "room-modern-office-1": {"url": "assets/modern/room-modern-office-1.png", "width": 384, "height": 256}, "room-modern-office-2": {"url": "assets/modern/room-modern-office-2.png", "width": 384, "height": 256}, "room-modern-office-3": {"url": "assets/modern/room-modern-office-3.png", "width": 384, "height": 256}, "building-modern-rowan": {"url": "assets/modern/building-modern-rowan.png", "width": 216, "height": 192}, "room-modern-rowan-0": {"url": "assets/modern/room-modern-rowan-0.png", "width": 384, "height": 256}, "room-modern-rowan-1": {"url": "assets/modern/room-modern-rowan-1.png", "width": 384, "height": 256}, "room-modern-rowan-2": {"url": "assets/modern/room-modern-rowan-2.png", "width": 384, "height": 256}, "room-modern-rowan-3": {"url": "assets/modern/room-modern-rowan-3.png", "width": 384, "height": 256}, "building-modern-willow": {"url": "assets/modern/building-modern-willow.png", "width": 216, "height": 186}, "room-modern-willow-0": {"url": "assets/modern/room-modern-willow-0.png", "width": 384, "height": 256}, "room-modern-willow-1": {"url": "assets/modern/room-modern-willow-1.png", "width": 384, "height": 256}, "room-modern-willow-2": {"url": "assets/modern/room-modern-willow-2.png", "width": 384, "height": 256}, "room-modern-willow-3": {"url": "assets/modern/room-modern-willow-3.png", "width": 384, "height": 256}, "building-modern-clinic": {"url": "assets/modern/building-modern-clinic.png", "width": 232, "height": 117}, "room-modern-clinic-0": {"url": "assets/modern/room-modern-clinic-0.png", "width": 384, "height": 256}, "room-modern-clinic-1": {"url": "assets/modern/room-modern-clinic-1.png", "width": 384, "height": 256}, "room-modern-clinic-2": {"url": "assets/modern/room-modern-clinic-2.png", "width": 384, "height": 256}, "room-modern-clinic-3": {"url": "assets/modern/room-modern-clinic-3.png", "width": 384, "height": 256}, "building-modern-bakery": {"url": "assets/modern/building-modern-bakery.png", "width": 216, "height": 137}, "room-modern-bakery-0": {"url": "assets/modern/room-modern-bakery-0.png", "width": 384, "height": 256}, "room-modern-bakery-1": {"url": "assets/modern/room-modern-bakery-1.png", "width": 384, "height": 256}, "room-modern-bakery-2": {"url": "assets/modern/room-modern-bakery-2.png", "width": 384, "height": 256}, "room-modern-bakery-3": {"url": "assets/modern/room-modern-bakery-3.png", "width": 384, "height": 256}, "character-modern-player": {"url": "assets/modern/character-modern-player.png", "width": 128, "height": 128, "frameWidth": 32, "frameHeight": 32, "columns": 4, "rows": ["south", "west", "east", "north"]}, "character-modern-civilian-a": {"url": "assets/modern/character-modern-civilian-a.png", "width": 128, "height": 128, "frameWidth": 32, "frameHeight": 32, "columns": 4, "rows": ["south", "west", "east", "north"]}, "character-modern-civilian-b": {"url": "assets/modern/character-modern-civilian-b.png", "width": 128, "height": 128, "frameWidth": 32, "frameHeight": 32, "columns": 4, "rows": ["south", "west", "east", "north"]}, "character-modern-police": {"url": "assets/modern/character-modern-police.png", "width": 128, "height": 128, "frameWidth": 32, "frameHeight": 32, "columns": 4, "rows": ["south", "west", "east", "north"]}, "ground-modern-asphalt": {"url": "assets/modern/ground-modern-asphalt.png", "width": 96, "height": 96}};</script><script src="boot.js?v=c8eb3e0b129636dc"></script><script src="engine.js?v=c8eb3e0b129636dc"></script><script src="renderer.js?v=c8eb3e0b129636dc"></script><script src="game.js?v=c8eb3e0b129636dc"></script></body></html>
