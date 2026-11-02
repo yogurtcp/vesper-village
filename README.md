@@ -2,6 +2,12 @@
 
 A separate, dependency-free pixel-art vampire-town prototype. Frostline is unchanged.
 
+**Play:** https://vesper-village.yogurt-co.chatgpt.site
+
+**Public source:** https://github.com/yogurtcp/vesper-village
+
+Open source under the [MIT license](LICENSE). No account is required to play. Saved villages remain in each visitor's browser; there is no shared player database.
+
 Move with WASD / arrows, hold Shift to run, and hold E for five uninterrupted seconds near a human to feed and turn them. J opens the persistent resident journal; M shows the street map. Phone controls provide a stick and hold-to-bite / run buttons. The journal and map pause time. The Time button cycles the entire simulation through ×1, ×4 and ×12 for testing.
 
 ## Implemented
@@ -43,4 +49,4 @@ Fourteen engine checks cover hunger and sunlight, conversion, interruption, wind
 
 Isolated browser checks cover an actual five-second E-key bite, save/reload of conversion / suspicion / health / exposure, journal and resident inspection, street map, offline saved startup, mobile touch layout and runtime errors. Startup upgrade is checked with a previous cache version and persistent village data.
 
-Published using the Sites skill; `.openai/hosting.json` retains the private Site identity. Keep source commits marked `[muse]`. Do not change the audience without a user request.
+Published using the Sites skill; `.openai/hosting.json` retains the Site identity. The game and GitHub repository are public at the owner's request. Keep source commits marked `[muse]`. Preserve the public audience on future deployments.
