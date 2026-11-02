@@ -1,0 +1,26 @@
+[
+  {
+    "name": "interiors-modern-cafe-clear",
+    "source": "/home/yevgeny/.codex/generated_images/01a11f23-43ba-7833-8aa6-c8d1c1fc528d/exec-f2584b76-2972-48e1-825a-0cbd2a2eeb54.png",
+    "prompt": "Edit this 2x2 modern pixel-art interior atlas. ONLY change the TOP LEFT room panel. Preserve other panels exactly. In the TOP LEFT room, the NORTH/back doorway is obstructed by the continuous service counter directly in front of it. Remove a large CENTRAL SECTION of that counter and all appliances on that section, creating a clear 1-metre walk-through gap from the open foreground floor STRAIGHT to the doorway. The counter becomes TWO separate counter islands, one on each side of the central north doorway, with clearly visible continuous floor between them. The gap is centered directly under the existing back doorway and must be at least 1.5 times the door width. Keep the existing NORTH door in exactly the same place, and preserve all side doors. No new door. Do not change camera or room panel boundaries or other three rooms. The reference is the edit target. Crisp coherent pixel art, no text.",
+    "transparent": false
+  },
+  {
+    "name": "interiors-modern-froyo-clear",
+    "source": "/home/yevgeny/.codex/generated_images/01a11f23-43ba-7833-8aa6-c8d1c1fc528d/exec-9c849761-d162-4473-ad70-43a444903f48.png",
+    "prompt": "Edit this 2x2 modern pixel-art interior atlas. ONLY change the TOP LEFT room panel. Preserve other panels exactly. In the TOP LEFT room, the NORTH/back doorway is obstructed by the continuous service counter directly in front of it. Remove a large CENTRAL SECTION of that counter and all appliances on that section, creating a clear 1-metre walk-through gap from the open foreground floor STRAIGHT to the doorway. The counter becomes TWO separate counter islands, one on each side of the central north doorway, with clearly visible continuous floor between them. The gap is centered directly under the existing back doorway and must be at least 1.5 times the door width. Keep the existing NORTH door in exactly the same place, and preserve all side doors. No new door. Do not change camera or room panel boundaries or other three rooms. The reference is the edit target. Crisp coherent pixel art, no text.",
+    "transparent": false
+  },
+  {
+    "name": "interiors-modern-guards-clear",
+    "source": "/home/yevgeny/.codex/generated_images/01a11f23-43ba-7833-8aa6-c8d1c1fc528d/exec-6fb371d2-a020-451c-9909-61591e64d9de.png",
+    "prompt": "Edit this 2x2 modern pixel-art interior atlas. ONLY change the TOP LEFT room panel. Preserve other panels exactly. In the TOP LEFT room, the NORTH/back doorway is obstructed by the continuous service counter directly in front of it. Remove a large CENTRAL SECTION of that counter and all appliances on that section, creating a clear 1-metre walk-through gap from the open foreground floor STRAIGHT to the doorway. The counter becomes TWO separate counter islands, one on each side of the central north doorway, with clearly visible continuous floor between them. The gap is centered directly under the existing back doorway and must be at least 1.5 times the door width. Keep the existing NORTH door in exactly the same place, and preserve all side doors. No new door. Do not change camera or room panel boundaries or other three rooms. The reference is the edit target. Crisp coherent pixel art, no text.",
+    "transparent": false
+  },
+  {
+    "name": "interiors-modern-bakery-clear",
+    "source": "/home/yevgeny/.codex/generated_images/01a11f23-43ba-7833-8aa6-c8d1c1fc528d/exec-c0a94114-d373-4e37-b062-d540d94fa6dc.png",
+    "prompt": "Edit this 2x2 modern pixel-art interior atlas. ONLY change the TOP LEFT room panel. Preserve other panels exactly. In the TOP LEFT room, the NORTH/back doorway is obstructed by the continuous service counter directly in front of it. Remove a large CENTRAL SECTION of that counter and all appliances on that section, creating a clear 1-metre walk-through gap from the open foreground floor STRAIGHT to the doorway. The counter becomes TWO separate counter islands, one on each side of the central north doorway, with clearly visible continuous floor between them. The gap is centered directly under the existing back doorway and must be at least 1.5 times the door width. Keep the existing NORTH door in exactly the same place, and preserve all side doors. No new door. Do not change camera or room panel boundaries or other three rooms. The reference is the edit target. Crisp coherent pixel art, no text.",
+    "transparent": false
+  }
+]

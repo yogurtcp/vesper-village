@@ -1,0 +1,5 @@
+{
+  "name": "interiors-modern-inn-clear",
+  "prompt": "Edit target: this four-panel modern hotel room atlas. ONLY in the TOP LEFT lobby panel: completely REMOVE the teal sofa/bench and tall floor plant that obstruct the LEFT/WEST wall doorway. Replace them with matching unobstructed terrazzo FLOOR. Keep that left door in its exact current position and size. Keep the low coffee table where it is, keep all three existing doors in the exact same position and same dimensions, reception desk, luggage shelves and other furniture unchanged. Do NOT add doors. Do NOT change the other three panels or camera or panel boundaries. This is a functional game background: the left doorway needs a clear walking route from its threshold toward the center of the room. Pixel art, no people.",
+  "source": "/home/yevgeny/.codex/generated_images/01a11f23-43ba-7833-8aa6-c8d1c1fc528d/exec-8d1e663e-cb88-41c5-8841-799c5d366935.png"
+}
