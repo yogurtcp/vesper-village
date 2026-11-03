@@ -38,7 +38,7 @@ Actual game views: [modern street](design/previews/modern-street.png), [hotel lo
 
 ## Vampire rules
 
-- Thirty-six named residents have homes, occupations, schedules, temperaments and close relations. One is initially a hungry vampire.
+- Thirty-six named residents have homes, occupations, schedules, temperaments and close relations. All begin human. The player is the only starting vampire; every later vampire comes from a completed bite.
 - At ×1 one game hour lasts one real minute. Blood falls from 100% to 20% over 24 game hours under normal conditions. Below 50%, direct sunlight outside drains blood 1.5× faster. Indoors and building-front shade avoid the extra drain.
 - Every completed bite, including an NPC bite, converts its victim and fills the attacker to 100%. New vampires start at 72%, begin seeking prey below 58%, and keep their identities and routines. They are independent competitors.
 - Crimson marks are player-only vampire sense. Human suspicion comes from witnessed attacks, reports and diluted rumors. Hearsay does not accumulate into certainty.
@@ -86,7 +86,7 @@ Install metadata, icons and a discoverable install action are included. The work
 
 ## Validation
 
-Twenty-nine engine checks cover hunger / sunlight, feeding and interruption, scene isolation, every doorway, all 48 room routes, distant journeys without per-frame updates, materialization continuity, unseen bites, rumors, reports, guard pursuit across doors, silver deaths, obsolete travel cancellation, save continuity, format-1/2 migration, facing-away and sleeping witnesses, phone reports, restrained callers, unique room art and registration of every painted doorway. Three natural two-day simulations also exercise spreading conversion, reports, rumor chains and guard killings; these are not a guarantee of long-term balance.
+Thirty engine checks cover hunger / sunlight, feeding and interruption, scene isolation, every doorway, all 48 room routes, distant journeys without per-frame updates, materialization continuity, unseen bites, rumors, reports, guard pursuit across doors, silver deaths, obsolete travel cancellation, save continuity, format-1/2 migration, facing-away and sleeping witnesses, phone reports, restrained callers, unique room art and registration of every painted doorway. Three two-day simulations following a player-created vampire also exercise spreading conversion, reports, rumor chains and guard killings; these are not a guarantee of long-term balance.
 
 Browser checks exercise real movement and feeding keys, building / room entry and reverse exits, the journal, compact map, mobile controls, saved-room restoration, cached artwork offline, and upgrade from the previously published room-scene build to the modern town with all 67 runtime assets offline.
 

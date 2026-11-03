@@ -19,6 +19,8 @@ Characters use 4-direction/4-phase walk atlases. Distance drives frames, idle is
 
 ## Feeding, witnesses and simulation
 
+Fresh villages have only the player as a vampire; all 36 NPCs start human. Never seed a competitor. NPC vampires arise from completed bites. Existing saved conversions remain intact. Startup text and the journal count include the player.
+
 Nearby humans hear the victim cry even if facing away, turn toward the attacker and witness through clear line of sight. Nearby sleeping people wake after one second. Separate rooms/walls block identification. Visible encounters are deterministic even before promotion to active residents. Unseen visual-only encounters retain coarse probabilities. Witnesses flee toward police and can make a two-second phone call after three seconds and separation from the attacker; guards/station receive reports immediately. Reporting takes precedence over routines. Held/converted/dead callers cannot finish a call. Both player and NPC bites share this code.
 
 The event queue remains authoritative offscreen. Planned travel is materialized only when needed. Reports receive short scheduled events even during distant travel. Preserve scene isolation, clearRoute on cancelled travel, lazy blood, permanent identification, rumor provenance, five-second conversion and all original blood rules. Current room/nearby neighborhood alone receives continuous movement.
@@ -29,7 +31,7 @@ Storage key stays vesper-village-save-v1. Format 3 migrates formats 1/2 to moder
 
 PWA checks only at online startup, never on timers/focus/reconnection; active play is not reloaded. All runtime art is precached. Preserve offline support and saved work.
 
-Run `python3 build.py` and `node tests.cjs`: 29 behavior checks plus three natural two-day simulations. Browser checks passed actual keyboard doors, released-player autonomy, NPC bite → flee → phone report, mobile layout, all 67 assets offline, and published-v2 → modern-v3 startup upgrade preserving an active bite and beliefs. Current screenshots are in design/previews/modern-*.
+Run `python3 build.py` and `node tests.cjs`: 30 behavior checks plus three two-day simulations after a player-created vampire. Browser checks passed actual keyboard doors, released-player autonomy, NPC bite → flee → phone report, mobile layout, all 67 assets offline, and published-v2 → modern-v3 startup upgrade preserving an active bite and beliefs. Current screenshots are in design/previews/modern-*.
 
 Routines remain experimental, population can still be exhausted, there is no detailed inventory/CCTV/investigation system and no simulation while the app is closed.
 
